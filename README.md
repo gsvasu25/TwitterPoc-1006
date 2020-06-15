@@ -5,7 +5,9 @@ I have used Bootstrap CSS for this application
 
 I am displaying the Post and the Post details with in the same route.
 
-Overall I could manage to spend 20hrs of time to complete this assignment as I am a billabale resource in a different project where I was taking care of my deliveries.
-Porvided more time I would have implemented the Delay display feature along with unit testing.
+The grid items are displaying with 500ms for each item.
 
-Also, I would have implemented this project with more securities and features like scrolling pagination, look and feel of the application etc..
+Created common.scss
+
+I have added unit testing for API call
+
