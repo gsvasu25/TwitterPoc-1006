@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Delayed from "./Delayed";
 class PostsGrid extends Component {
   constructor(props) {
     super(props);
@@ -10,11 +9,13 @@ class PostsGrid extends Component {
       errorMsg: false,
       isLoading: true,
       searchKey: "",
+      renderedPosts: [],
+      itemsRendered: 0,
     };
     this.divClickHandle = this.divClickHandle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.renderChildren = this.renderChildren.bind(this);
+    this.updateRenderedPosts = this.updateRenderedPosts.bind(this);
   }
   divClickHandle(val) {
     this.props.gridShow(false, val.currentTarget.dataset.postid);
@@ -25,24 +26,7 @@ class PostsGrid extends Component {
   handleChange = (event) => {
     this.setState({ searchKey: event.target.value });
   };
-  renderChildren() {
-    const posts = this.state.posts;
-    posts.map((post, i) =>
-      setTimeout(() => {
-        <div
-          onClick={this.divClickHandle}
-          key={post.id}
-          data-postid={post.id}
-          className="col-md-4"
-        >
-          <div className="title">
-            <div className="post-user">UserID:{post.userId}</div>
-            <div>Title:{post.title}</div>
-          </div>
-        </div>;
-      }, 1000 * posts.length - 1000 * i)
-    );
-  }
+
   fetchData() {
     axios
       .get("https://jsonplaceholder.typicode.com/posts")
@@ -66,6 +50,7 @@ class PostsGrid extends Component {
             posts: data.sort((a, b) => b.id - a.id),
             isLoading: false,
           });
+        this.scheduleNextPost();
       })
       .catch((error) => {
         this.setState({ errorMsg: true, isLoading: false });
@@ -74,9 +59,31 @@ class PostsGrid extends Component {
   componentDidMount() {
     this.fetchData();
   }
+
+  scheduleNextPost() {
+    this.timer = setTimeout(this.updateRenderedPosts, 500);
+  }
+
+  updateRenderedPosts() {
+    const itemsRendered = this.state.itemsRendered;
+    const updatedState = {
+      renderedPosts: this.state.renderedPosts.concat(
+        this.state.posts[this.state.itemsRendered]
+      ),
+      itemsRendered: itemsRendered + 1,
+    };
+    this.setState(updatedState);
+    if (updatedState.itemsRendered < this.state.posts.length) {
+      this.scheduleNextPost();
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
   render() {
     const { posts, isLoading, errorMsg } = this.state;
-
+    console.log(this.state.renderedPosts);
     return (
       <div>
         <nav className="navbar navbar-light bg-light justify-content-between">
@@ -100,21 +107,24 @@ class PostsGrid extends Component {
         </nav>
         {!isLoading && !errorMsg && (
           <div className="row">
-            {posts.length
-              ? posts.map((post, i) => (
+            {this.state.renderedPosts
+              ? this.state.renderedPosts.map((post, i) => (
                   <div
-                    style={{
-                      transitionDelay: `${i * 5000}ms`,
-                      transitionDuration: `${i * 5000}ms`,
-                    }}
                     onClick={this.divClickHandle}
                     key={post.id}
                     data-postid={post.id}
-                    className="col-md-4"
+                    className="col-md-4 "
                   >
-                    <div className="title">
-                      <div className="post-user">UserID:{post.userId}</div>
-                      <div>Title:{post.title}</div>
+                    <div className="shadow">
+                      <div className="post-box">
+                        <div className="title">
+                          <div className="post-user">UserID: {post.userId}</div>
+                          <div>
+                            <b>Title: </b>
+                            {post.title}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))

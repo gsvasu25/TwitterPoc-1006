@@ -1,0 +1,38 @@
+a {
+  cursor: pointer;
+}
+.help-block {
+  font-size: 12px;
+}
+.title {
+  padding: 10px;
+}
+.justify-content-between {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+.post-user {
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+.btn-back {
+  width: 100%;
+}
+.spinner {
+  text-align: center;
+  padding: 50px;
+}
+.has-error .help-block {
+  color: red;
+}
+.shadow {
+  background: #f7f8f9;
+  padding: 3px;
+  margin: 10px 0;
+}
+.post-box {
+  color: #2e5014;
+  background: #d5efc2;
+  cursor: pointer;
+}

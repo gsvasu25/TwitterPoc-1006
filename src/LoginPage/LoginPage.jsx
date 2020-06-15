@@ -1,5 +1,4 @@
 import React from "react";
-
 import { userService } from "../_services";
 
 class LoginPage extends React.Component {
@@ -111,6 +110,7 @@ class LoginPage extends React.Component {
           >
             <label htmlFor="password">Password</label>
             <input
+              id="password"
               type="password"
               className="form-control"
               name="password"

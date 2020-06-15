@@ -25,7 +25,7 @@ export function configureFakeBackend() {
               user.password === params.password
             );
           });
-
+          console.log("test");
           if (filteredUsers.length) {
             // if login details are valid return user details
             let user = filteredUsers[0];

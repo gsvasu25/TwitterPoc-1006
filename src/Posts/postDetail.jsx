@@ -48,10 +48,36 @@ class PostDetail extends Component {
           )}
           {!errorMsg && !isLoading && (
             <div className="col-md-12">
-              <div>UserId:{post.userId}</div>
-              <div>Id:{post.id}</div>
-              <div>Title:{post.title}</div>
-              <div>Body:{post.body}</div>
+              <div className="shadow">
+                <div className="post-box">
+                  <ul className="list-group">
+                    <li className="list-group-item">
+                      <b>
+                        <u>UserId:</u>{" "}
+                      </b>
+                      {post.userId}
+                    </li>
+                    <li className="list-group-item">
+                      <b>
+                        <u>Id:</u>{" "}
+                      </b>
+                      {post.id}
+                    </li>
+                    <li className="list-group-item">
+                      <b>
+                        <u>Title:</u>{" "}
+                      </b>
+                      {post.title}
+                    </li>
+                    <li className="list-group-item">
+                      <b>
+                        <u>Body:</u>{" "}
+                      </b>
+                      {post.body}
+                    </li>
+                  </ul>
+                </div>{" "}
+              </div>{" "}
             </div>
           )}
           {errorMsg && !isLoading && (

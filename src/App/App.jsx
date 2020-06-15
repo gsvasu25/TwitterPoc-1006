@@ -5,6 +5,7 @@ import { PrivateRoute } from "../_components";
 import { LoginPage } from "../LoginPage";
 import { Posts } from "../Posts";
 import { NotFoundPage } from "../ErrorPages/NotFoundPage";
+import "./common.scss";
 class App extends React.Component {
   render() {
     return (
